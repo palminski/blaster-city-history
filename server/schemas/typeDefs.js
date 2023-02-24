@@ -12,6 +12,25 @@ const typeDefs = gql`
         _id: ID
         name: String
         exercises: [Exercise]
+    }
+
+    type Exercise {
+        _id: ID
+        name: String
+        sets: Int
+        reps: Int
+        weight: Float
+    }
+
+    type Calender {
+        _id: ID
+        moday: Workout
+        tuesday: Workout
+        wednesday: Workout
+        thursday: Workout
+        friday: Workout
+        saturday: Workout
+        sunday: Workout
 
     }
 
