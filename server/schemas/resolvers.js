@@ -19,6 +19,31 @@ const resolvers = {
         },
     },
     Mutation: {
+        addWorkout: async(parent, {name}, context) => {
+            if (context.user) {
+                const updatedUser = await User.findOneAndUpdate(
+                    {_id: context.user._id},
+                    {$push: {workouts: {name:name}}},
+                    {new:true, runValidators:true}
+                );
+                console.log(updatedUser)
+                return updatedUser;
+            }
+            throw new AuthenticationError('Must be logged in to perform this action');
+        },
+        addExercise: async(parent, {workoutId, name, reps, sets, weight}, context) => {
+            if (context.user) {
+                const updatedUser = await User.findOneAndUpdate(
+                    {_id: context.user._id, "workouts._id":workoutId},
+                    {$push: {"workouts.$.exercises": {name:name,  sets:sets, reps:reps, weight:weight}}},
+                    {new:true, runValidators:true}
+                );
+                console.log(updatedUser);
+                return updatedUser;
+                
+            }
+            throw new AuthenticationError('Must be logged in to perform this action');
+        },
         addUser: async (parent, args) => {
             const user = await User.create(args);
             const token = signToken(user);
