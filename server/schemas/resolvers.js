@@ -31,6 +31,17 @@ const resolvers = {
             }
             throw new AuthenticationError('Must be logged in to perform this action');
         },
+        deleteWorkout:async(parent, {workoutId}, context) => {
+            if (context.user) {
+                const updatedUser = await User.findOneAndUpdate(
+                    {_id: context.user._id},
+                    {$pull: {workouts: {_id:workoutId}}},
+                    {new:true}
+                );
+                return updatedUser;
+            }
+            throw new AuthenticationError('Must be logged in to perform this action');
+        },
         addExercise: async(parent, {workoutId, name, reps, sets, weight}, context) => {
             if (context.user) {
                 const updatedUser = await User.findOneAndUpdate(

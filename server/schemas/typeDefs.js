@@ -49,6 +49,7 @@ const typeDefs = gql`
     type Mutation {
 
         addWorkout(name: String!): User
+        deleteWorkout(workoutId: ID!): User
 
         addExercise(workoutId: ID!, name: String!, sets: Int!, reps: Int!, weight: Float!): User
 
