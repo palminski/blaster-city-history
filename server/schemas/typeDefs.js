@@ -12,6 +12,25 @@ const typeDefs = gql`
         _id: ID
         name: String
         exercises: [Exercise]
+    }
+
+    type Exercise {
+        _id: ID
+        name: String
+        sets: Int
+        reps: Int
+        weight: Float
+    }
+
+    type Calender {
+        _id: ID
+        moday: Workout
+        tuesday: Workout
+        wednesday: Workout
+        thursday: Workout
+        friday: Workout
+        saturday: Workout
+        sunday: Workout
 
     }
 
@@ -28,8 +47,15 @@ const typeDefs = gql`
 
 
     type Mutation {
-        addUser(username: String!, password: String!): Auth
 
+        addWorkout(name: String!): User
+        deleteWorkout(workoutId: ID!): User
+        editWorkout(workoutId: ID!, name:String!): User
+
+        addExercise(workoutId: ID!, name: String!, sets: Int!, reps: Int!, weight: Float!): User
+        deleteExercise(workoutId: ID!, exerciseId:ID!): User
+
+        addUser(username: String!, password: String!): Auth
         loginUser(username: String!, password: String!): Auth
     }
 `
