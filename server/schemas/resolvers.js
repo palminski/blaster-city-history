@@ -20,6 +20,7 @@ const resolvers = {
     },
     Mutation: {
         //Workout Mutations
+
         addWorkout: async(parent, {name}, context) => {
             if (context.user) {
                 const updatedUser = await User.findOneAndUpdate(
@@ -47,8 +48,8 @@ const resolvers = {
             if (context.user) {
                 const user = await User.findById(context.user._id);
                 const index = user.workouts.findIndex(workout => workout._id.toString() === workoutId);
-
-                const editedWorkout = {_id: workoutId, name};
+                const exercises = user.workouts[index].exercises;
+                const editedWorkout = {_id: workoutId, name, exercises};
                 user.workouts.splice(index, 1, editedWorkout);
                 await user.save();
                 return user;
@@ -56,6 +57,7 @@ const resolvers = {
             }
             throw new AuthenticationError('Must be logged in to perform this action');
         },
+
         //Excersize Mutations
         addExercise: async(parent, {workoutId, name, reps, sets, weight}, context) => {
             if (context.user) {
@@ -70,6 +72,20 @@ const resolvers = {
             }
             throw new AuthenticationError('Must be logged in to perform this action');
         },
+        deleteExercise:async(parent, {workoutId, exerciseId}, context) => {
+            if (context.user) {
+                console.log(exerciseId);
+                const updatedUser = await User.findOneAndUpdate(
+                    {_id: context.user._id, "workouts._id":workoutId},
+                    {$pull: {"workouts.$.exercises": {_id:exerciseId}}},
+                    {new:true}
+                );
+                return updatedUser;
+            }
+            throw new AuthenticationError('Must be logged in to perform this action');
+        },
+
+        //User Mutations
         addUser: async (parent, args) => {
             const user = await User.create(args);
             const token = signToken(user);
