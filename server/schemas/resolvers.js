@@ -19,6 +19,7 @@ const resolvers = {
         },
     },
     Mutation: {
+        //Workout Mutations
         addWorkout: async(parent, {name}, context) => {
             if (context.user) {
                 const updatedUser = await User.findOneAndUpdate(
@@ -42,6 +43,20 @@ const resolvers = {
             }
             throw new AuthenticationError('Must be logged in to perform this action');
         },
+        editWorkout:async(parent, {workoutId, name}, context) => {
+            if (context.user) {
+                const user = await User.findById(context.user._id);
+                const index = user.workouts.findIndex(workout => workout._id.toString() === workoutId);
+
+                const editedWorkout = {_id: workoutId, name};
+                user.workouts.splice(index, 1, editedWorkout);
+                await user.save();
+                return user;
+                
+            }
+            throw new AuthenticationError('Must be logged in to perform this action');
+        },
+        //Excersize Mutations
         addExercise: async(parent, {workoutId, name, reps, sets, weight}, context) => {
             if (context.user) {
                 const updatedUser = await User.findOneAndUpdate(
