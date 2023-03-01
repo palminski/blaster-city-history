@@ -4,9 +4,13 @@ import {useState} from 'react';
 
 const Workouts = () => {
     const {loading,data} = useQuery(QUERY_CURRENT_USER);
-    
     const user = (data?.currentUser)
-    console.log(user.workouts);
+    
+    const [selectedWorkoutIndex, setSelectedWorkoutIndex] = useState("none")
+
+    const handleSelectChange = (e) => {
+        console.log(e.target.value);
+    }
 
     return (
         <>
@@ -26,11 +30,19 @@ const Workouts = () => {
                         
 
                         <label htmlFor="workouts">Select a Workout: </label>
-                        <select name="workouts">
+                        <select name="workouts" onChange={handleSelectChange}>
                             {user.workouts && user.workouts.map(workout => (
-                                <option key={workout._id} value={workout.name}>{workout.name}</option>
+                                <option key={workout._id} value={workout._id}>{workout.name}</option>
                             ))}
                         </select>
+                        {selectedWorkoutIndex !== "none" ?
+                        <>
+                        </>
+                        :
+                        <>
+                        <h3>Select a workout above!</h3>
+                        </>
+                        }
                         </>
                         }
 
