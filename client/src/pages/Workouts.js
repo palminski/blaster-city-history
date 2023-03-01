@@ -10,6 +10,9 @@ const Workouts = () => {
 
     const handleSelectChange = (e) => {
         console.log(e.target.value);
+        let workoutIndex = user.workouts.findIndex(workout => workout._id === e.target.value);
+        console.log(workoutIndex);
+        setSelectedWorkoutIndex(workoutIndex);
     }
 
     return (
@@ -37,6 +40,11 @@ const Workouts = () => {
                         </select>
                         {selectedWorkoutIndex !== "none" ?
                         <>
+                        <h3>{selectedWorkoutIndex}</h3>
+                        <h3>{user.workouts[selectedWorkoutIndex].name}</h3>
+                        {user.workouts[selectedWorkoutIndex].exercises && user.workouts[selectedWorkoutIndex].exercises.map(exercise => (
+                                <p key={exercise._id}>{exercise.name}</p>
+                            ))}
                         </>
                         :
                         <>
