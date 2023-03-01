@@ -1,10 +1,10 @@
-const Calander = () => {
+const Calender = () => {
 
     return (
         <>
-        <h1>Calander</h1>
+        <h1>Calender</h1>
         </>
     );
 }
 
-export default Calander;
+export default Calender;
