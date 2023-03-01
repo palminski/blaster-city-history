@@ -13,6 +13,17 @@ export const QUERY_CURRENT_USER = gql`
 query CurrentUser {
     currentUser {
       username
+      workouts{
+        _id
+        name
+        exercises{
+          _id
+          name
+          reps
+          sets
+          weight
+        }
+      }
       _id
     }
   }

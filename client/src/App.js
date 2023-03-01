@@ -2,12 +2,16 @@ import {useState} from 'react';
 import './App.css';
 import {setContext} from '@apollo/client/link/context'
 import { ApolloProvider, InMemoryCache, ApolloClient, createHttpLink } from '@apollo/client';
+import Auth from "./utils/auth";
 
 //------[Components]------------------
 import Nav from './components/Nav';
 
 //------[Pages]-----------------------
 import Home from './pages/Home';
+import Workouts from './pages/Workouts';
+import Calender from './pages/Calender';
+import Today from './pages/Today';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 
@@ -44,6 +48,16 @@ function App() {
       {pageSelected === 'Home' && <Home/>}
       {pageSelected === 'Login' && <Login setPageSelected={setPageSelected}/>}
       {pageSelected === 'Signup' && <Signup setPageSelected={setPageSelected}/>}
+
+      {Auth.loggedIn() && 
+        <>
+        {pageSelected === 'Workouts' && <Workouts/>}
+        {pageSelected === 'Today' && <Today/>}
+        {pageSelected === 'Calender' && <Calender/>}
+        </>
+      }
+
+      
 
     </div>
     </ApolloProvider>
