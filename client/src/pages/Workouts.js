@@ -10,9 +10,14 @@ const Workouts = () => {
 
     const handleSelectChange = (e) => {
         console.log(e.target.value);
-        let workoutIndex = user.workouts.findIndex(workout => workout._id === e.target.value);
-        console.log(workoutIndex);
-        setSelectedWorkoutIndex(workoutIndex);
+        if (e.target.value === "none") {
+            setSelectedWorkoutIndex("none");
+        }
+        else {
+            let workoutIndex = user.workouts.findIndex(workout => workout._id === e.target.value);
+            setSelectedWorkoutIndex(workoutIndex);
+        }
+        
     }
 
     return (
@@ -34,16 +39,18 @@ const Workouts = () => {
 
                         <label htmlFor="workouts">Select a Workout: </label>
                         <select name="workouts" onChange={handleSelectChange}>
+                            <option value="none"></option>
                             {user.workouts && user.workouts.map(workout => (
                                 <option key={workout._id} value={workout._id}>{workout.name}</option>
                             ))}
                         </select>
+                                <hr></hr>
+
                         {selectedWorkoutIndex !== "none" ?
                         <>
-                        <h3>{selectedWorkoutIndex}</h3>
                         <h3>{user.workouts[selectedWorkoutIndex].name}</h3>
                         {user.workouts[selectedWorkoutIndex].exercises && user.workouts[selectedWorkoutIndex].exercises.map(exercise => (
-                                <p key={exercise._id}>{exercise.name}</p>
+                                <p key={exercise._id}>{exercise.name} - {exercise.reps} x {exercise.sets} - {exercise.weight}lbs</p>
                             ))}
                         </>
                         :
