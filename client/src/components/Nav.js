@@ -4,40 +4,40 @@ const Nav = (props) => {
     const {pageSelected, setPageSelected} = props;
 
     return (
-        <>
+        <nav>
         <ul>
-            <li>
-                <a href='#Home' onClick={() => setPageSelected('Home')}>Home</a>
-            </li>
+            <a>
+                <li href='#Home' onClick={() => setPageSelected('Home')}>Home</li>
+            </a>
             {!Auth.loggedIn() && 
-            <li>
-                <a href='#Login' onClick={() => setPageSelected('Login')}>Login</a>
-            </li>}
+            <a>
+                <li href='#Login' onClick={() => setPageSelected('Login')}>Login</li>
+            </a>}
             {!Auth.loggedIn() && 
-            <li>
-                <a href='#SignUp' onClick={() => setPageSelected('Signup')}>Sign Up</a>
-            </li>}
+            <a>
+                <li href='#SignUp' onClick={() => setPageSelected('Signup')}>Sign Up</li>
+            </a>}
             {Auth.loggedIn() && 
             <>
-            <li>
-                <a href='#Workouts' onClick={() => setPageSelected('Workouts')}>Workouts</a>
-            </li>
-            <li>
-                <a href='#Today' onClick={() => setPageSelected('Today')}>Today</a>
-            </li>
-            <li>
-                <a href='#Calender' onClick={() => setPageSelected('Calender')}>Calender</a>
-            </li>
-                <li>
-                <a href='/' onClick={() => {
+            <a>
+                <li href='#Workouts' onClick={() => setPageSelected('Workouts')}>Workouts</li>
+            </a>
+            <a>
+                <li href='#Today' onClick={() => setPageSelected('Today')}>Today</li>
+            </a>
+            <a>
+                <li href='#Calender' onClick={() => setPageSelected('Calender')}>Calender</li>
+            </a>
+                <a>
+                <li href='/' onClick={() => {
                     Auth.logout()
                     setPageSelected('Home')
-                    }}>Logout</a>
-            </li>
+                    }}>Logout</li>
+            </a>
             </>
             }
         </ul>
-        </>
+        </nav>
     )
 }
 
