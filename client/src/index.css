@@ -32,3 +32,8 @@ nav ul li{
   color: aliceblue;
   cursor: pointer;
 }
+
+/* Temporary while building app */
+form {
+  background-color: burlywood;
+}
