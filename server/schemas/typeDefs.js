@@ -56,6 +56,8 @@ const typeDefs = gql`
         deleteExercise(workoutId: ID!, exerciseId:ID!): User
         editExercise(workoutId: ID!, exerciseId:ID!, name: String!, sets: Int!, reps: Int!, weight: Float!): User
 
+        editCalender(monday: String!, tuesday:String!, wednesday:String!, thursday: String!, friday: String!, saturday: String!, sunday: String!): User
+
         addUser(username: String!, password: String!): Auth
         loginUser(username: String!, password: String!): Auth
     }
