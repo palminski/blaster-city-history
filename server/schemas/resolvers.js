@@ -96,8 +96,23 @@ const resolvers = {
             throw new AuthenticationError('Must be logged in to perform this action');
         },
 
+         //Calender Mutations
+         editCalender: async(parent, {monday, tuesday,wednesday,thursday,friday,saturday,sunday }, context) => {
+            if (context.user) {
+                const user = await User.findById(context.user._id);
+                console.log(user.calender);
+                console.log(monday);
+                user.calender = {_id:user.calender._id,monday:monday,tuesday:tuesday,wednesday:wednesday,thursday:thursday,friday:friday,saturday:saturday,sunday:sunday};
+                // console.log(args);
+                console.log(user.calender);
+                await user.save();
+                return user;
+            }
+        },
+
         //User Mutations--------------------------------------------------------------------------
         addUser: async (parent, args) => {
+            
             const user = await User.create(args);
             const token = signToken(user);
             return { token, user };
