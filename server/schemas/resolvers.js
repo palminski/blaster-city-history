@@ -97,10 +97,14 @@ const resolvers = {
         },
 
          //Calender Mutations
-         editCalender: async(parent, args, context) => {
+         editCalender: async(parent, {monday, tuesday,wednesday,thursday,friday,saturday,sunday }, context) => {
             if (context.user) {
                 const user = await User.findById(context.user._id);
-                user.calender = {args};
+                console.log(user.calender);
+                console.log(monday);
+                user.calender = {_id:user.calender._id,monday:monday,tuesday:tuesday,wednesday:wednesday,thursday:thursday,friday:friday,saturday:saturday,sunday:sunday};
+                // console.log(args);
+                console.log(user.calender);
                 await user.save();
                 return user;
             }
