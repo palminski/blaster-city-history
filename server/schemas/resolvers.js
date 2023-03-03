@@ -96,6 +96,16 @@ const resolvers = {
             throw new AuthenticationError('Must be logged in to perform this action');
         },
 
+         //Calender Mutations
+         editCalender: async(parent, args, context) => {
+            if (context.user) {
+                const user = await User.findById(context.user._id);
+                user.calender = {args};
+                await user.save();
+                return user;
+            }
+        },
+
         //User Mutations--------------------------------------------------------------------------
         addUser: async (parent, args) => {
             
