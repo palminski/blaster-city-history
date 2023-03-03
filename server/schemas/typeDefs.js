@@ -5,7 +5,7 @@ const typeDefs = gql`
         _id: ID
         username: String
         workouts: [Workout]
-        calender: [Calender]
+        calender: Calender
     }
 
     type Workout {
@@ -24,13 +24,13 @@ const typeDefs = gql`
 
     type Calender {
         _id: ID
-        moday: Workout
-        tuesday: Workout
-        wednesday: Workout
-        thursday: Workout
-        friday: Workout
-        saturday: Workout
-        sunday: Workout
+        monday: String
+        tuesday: String
+        wednesday: String
+        thursday: String
+        friday: String
+        saturday: String
+        sunday: String
 
     }
 

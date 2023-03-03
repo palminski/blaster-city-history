@@ -1,5 +1,6 @@
 const {Schema, model} = require('mongoose');
 const bcrypt = require('bcrypt');
+
 calenderSchema = require('./Calender');
 workoutSchema = require('./Workout');
 
@@ -18,7 +19,13 @@ const UserSchema = new Schema(
             trim: true
         },
         workouts:[workoutSchema],
-        calender:calenderSchema,
+        calender: {
+            type: calenderSchema,
+            default: {
+                
+
+            }
+        },
     },
 
 )
